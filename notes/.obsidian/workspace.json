@@ -1,0 +1,265 @@
+{
+  "main": {
+    "id": "192b3a8d8ff7b376",
+    "type": "split",
+    "children": [
+      {
+        "id": "f95bb53b8e2c15ad",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "50ff9b90230253dc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Model v0.1/2. Solution/Game Structure.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Game Structure"
+            }
+          }
+        ]
+      },
+      {
+        "id": "726bb7f60ecdca82",
+        "type": "split",
+        "children": [
+          {
+            "id": "07e585add3378fee",
+            "type": "tabs",
+            "dimension": 54.539007092198574,
+            "children": [
+              {
+                "id": "673feb9e4abafcc7",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Model v0.1/2. Solution/Game Structure.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Game Structure"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5a587e3d78069255",
+            "type": "tabs",
+            "dimension": 45.46099290780142,
+            "children": [
+              {
+                "id": "8f41089a6af15aee",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Model v0.1/0. Preeliminaries.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "0. Preeliminaries"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "02336b1f1ffe51dc",
+    "type": "split",
+    "children": [
+      {
+        "id": "192838f201f52291",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2e7d4c7b0055fd64",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "3ccb1b05feffb82e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "69f3970152d48e73",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 262.500732421875
+  },
+  "right": {
+    "id": "3917e09d2f88c689",
+    "type": "split",
+    "children": [
+      {
+        "id": "84c01d13b647bb09",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a7000a326108ecd2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Model v0.1/2. Solution/Algo.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Algo"
+            }
+          },
+          {
+            "id": "a23fd2aaaa729a54",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Model v0.1/2. Solution/Algo.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Algo"
+            }
+          },
+          {
+            "id": "a9295cda6d100b4a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "511c8246a0ff32c5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "7e3523247064e976",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Model v0.1/2. Solution/Algo.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Algo"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "2e7d4c7b0055fd64",
+  "lastOpenFiles": [
+    "Model v0.1/2. Solution/Competitor Profiling.md",
+    "Model v0.1/2. Solution/Behavioral Payoff Function.md",
+    "Model v0.1/2. Solution/Algorithms.md",
+    "Model v0.1/1. Problem/Statement.md",
+    "Model v0.1/0. Preeliminaries.md",
+    "Model v0.1/2. Solution/Game Structure.md",
+    "Model v0.1/1. Problem/Interest Rate Model.md",
+    "Model v0.1/1. Problem/Core Assumptions.md",
+    "Model v0.1/1. Problem/Collateral.md",
+    "Model v0.1/3. Implementation/Data Acquisition/Datasets.md",
+    "Model v0.1/3. Implementation/Data Acquisition/Pipeline.md",
+    "Model v0.1/2. Solution/Collateral Risk.md",
+    "Backup/Allocation Policy.md",
+    "Backup/Utility Function.md",
+    "Backup/Game Definition.md",
+    "Backup/Decision.md",
+    "Backup/Competitor Response.md",
+    "Model v0.1/3. Implementation/Signal",
+    "README.md",
+    "Backup",
+    "Model v0.1/3. Implementation/Monitoring",
+    "Model v0.1/3. Implementation/Data Acquisition",
+    "Model v0.1/3. Implementation",
+    "Model v0.1/2. Solution",
+    "Model v0.1/1. Problem",
+    "Model v0.1",
+    "Untitled/Untitled"
+  ]
+}
