@@ -8,7 +8,9 @@ Prospect Theory for Value function considering the reference point (for loss ave
 
 **Risk-Adjusted, Behavioral Payoff Function:**
 
-$$\boxed{\pi_i(w_i, w_{-i}) = \sum_{j=1}^M w_{ij} \cdot v_i(\Delta r_{ij}) - \gamma_i \cdot \text{Risk}_i(w_i, w) - \kappa_i \cdot \text{Cost}_i(w_i, w_i^{(0)})}$$
+```math
+  \boxed{\pi_i(w_i, w_{-i}) = \sum_{j=1}^M w_{ij} \cdot v_i(\Delta r_{ij}) - \gamma_i \cdot \text{Risk}_i(w_i, w) - \kappa_i \cdot \text{Cost}_i(w_i, w_i^{(0)})}
+```
 
 Where:
 
@@ -21,7 +23,6 @@ Where:
 - $\text{Cost}_i(w_i, w_i^{(0)})$: **Rebalancing cost function** (specified below).
 
 ## Value Function
----
 
 **Yield Change for Vault $i$ in Market $j$:**
 
@@ -41,7 +42,6 @@ $$v_i(\Delta r_{ij}) = \begin{cases}
 $$\alpha_i = \beta_i = 0.88, \quad \lambda_i = 2.25$$
 
 - Tversky, A., & Kahneman, D. (1992). Advances in prospect theory: Cumulative representation of uncertainty. *Journal of Risk and Uncertainty*, 5(4), 297-323.
-
 
 ### Reference Determination
 
@@ -67,37 +67,46 @@ $$r_{\text{ref},i} = \frac{1}{M} \sum_{j=1}^M r_j(w^{(0)})$$
 $$r_{\text{ref},i} = \max_{j \in \{1,\ldots,M\}} r_j(w^{(0)})$$
 
 ## Risk Penalty
----
 
 **Utilization Risk Penalty:**
 
 Penalizes allocation to high-utilization markets (liquidity withdrawal risk):
 
-$$\text{Risk}_i^{\text{util}}(w_i, w) = \sum_{j=1}^M w_{ij} \cdot \max\left(0, U_j'(w) - U_{\text{safe}}\right)^2$$
-
+```math
+  \text{Risk}_i^{\text{util}}(w_i, w) = \sum_{j=1}^M w_{ij} \cdot \max\left(0, U_j'(w) - U_{\text{safe}}\right)^2
+```
 
 Where : 
+
 - $U_{\text{safe}} = 0.85$ is the safety threshold (adjustable parameter).
 
 **Concentration Risk Penalty ():**
 
 Using the concept of the Herfindahl Index, which penalizes under-diversification :
 
-$$\text{Risk}_i^{\text{conc}}(w_i) = \sum_{j=1}^M w_{ij}^2$$
+```math
+  \text{Risk}_i^{\text{conc}}(w_i) = \sum_{j=1}^M w_{ij}^2
+```
 
 This is minimized at $1/M$ (equal allocation) and maximized at $1$ (single-market concentration).
 
 **Combined Risk Function:**
 
-$$\text{Risk}_i(w_i, w) = \rho_1 \cdot \text{Risk}_i^{\text{util}}(w_i, w) + \rho_2 \cdot \text{Risk}_i^{\text{conc}}(w_i)$$
+```math
+  \text{Risk}_i(w_i, w) = \rho_1 \cdot \text{Risk}_i^{\text{util}}(w_i, w) + \rho_2 \cdot \text{Risk}_i^{\text{conc}}(w_i)
+```
 
-Where
+Where:
+
 - $\rho_1, \rho_2 > 0$ are weighting parameters (typically $\rho_1, \rho_2 \in [0.5, 2]$).
 
 ## Transaction Cost
----
 
-$$\text{Cost}_i(w_i, w_i^{(0)}) = c_{\text{gas}} \cdot \text{TVL}_i \cdot \sum_{j=1}^M \left|w_{ij} - w_{ij}^{(0)}\right|$$
+
+```math
+  \text{Cost}_i(w_i, w_i^{(0)}) = c_{\text{gas}} \cdot \text{TVL}_i \cdot \sum_{j=1}^M \left|w_{ij} - w_{ij}^{(0)}\right|
+```
+
 Where :
 
 - $c_{\text{gas}} \in [0.001, 0.005]$ represents the per-dollar cost of rebalancing (gas fees + slippage), typically 0.1-0.5%.
