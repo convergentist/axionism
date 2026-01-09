@@ -1,3 +1,4 @@
+## Problem Statement
 
 To find an optimal policy for USDc liquidity allocation/extraction across three Morpho Blue lending pools:
 
@@ -8,7 +9,6 @@ To find an optimal policy for USDc liquidity allocation/extraction across three 
 This by only conducting lending actions without borrowing actions. Also, incorporating the fact that the challenge poses a zero sum game, that we will be competing against other vault managers for the same liquidity, and when multiple vaults pile into a pool, utilization spikes and rate volatility increases, etc. 
 
 ## Scope
----
 
 ### Considered aspects
 
@@ -30,7 +30,6 @@ This by only conducting lending actions without borrowing actions. Also, incorpo
 - Any other not explicitly included in the Modeling considerations list. 
 
 # Competitors Modeling
----
 
 Given the presence of other agents whose actions directly impact our potential outcomes, a game theoretic approach makes sense.
 
@@ -39,7 +38,6 @@ Given the presence of other agents whose actions directly impact our potential o
 - A non-cooperative dynamic game with perfect information, where multiple players can implement mixed strategies, with the potential convergence to an evolutionary equilibrium.
 
 # Enhancements
----
 
 ### Behavioral Modeling
 
@@ -54,7 +52,7 @@ Quantal Response  responsiveness converges probabilistically
 WOLF for Iterative decision making
 
 # Collateral Risk Modeling (Pending)
----
+
 
 - Collateral Risk: 
 	- The collateral asset posses inherent risk sources, it determines the baseline risk profile. 

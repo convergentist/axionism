@@ -2,7 +2,6 @@
 By analyzing historical rebalancing events for every competitor $i$, the anchor event is the act of conducting a capital allocation action (adding/extracting) into and from a pool.
 
 # Behavior Types
----
 
 Type 1 : Risk Seeking with Loss Aversion (Yield hunter)
 
@@ -41,7 +40,6 @@ Type 4 : Rational Optimizer (Classical and almost theoretic case)
 
 
 ## Quantifying biases
----
 
 Using historical rebalance events to identify the patterns :
 
@@ -49,7 +47,10 @@ Using historical rebalance events to identify the patterns :
 
 The monetary proportion of realized losses are equal or greater than two times the realized gains.
 
-$$LA = \frac{|\text{Floating Loss}_{\text{max}}|}{|\text{Realized Gain}|} > 2$$ 
+```math
+  LA = \frac{|\text{Floating Loss}_{\text{max}}|}{|\text{Realized Gain}|} > 2
+```
+
 ### Disposition Effect
 
 The presence of "cutting fast gains", and, "holding losses too long" patterns.
@@ -58,11 +59,14 @@ The presence of "cutting fast gains", and, "holding losses too long" patterns.
 2. **Scan for Floating Losses:** For every anchor event, check if the vault simultaneously maintained exposure to an underperforming pool (the "loser") that had a lower APY or was yielding a relative loss.
 3. **Apply the Ratio Test:** Measure the disproportion between holding time between the realized gain and the retained loss.
 
-$$DE = \frac{1}{N} \sum_{i=1}^{N} \Delta\tau^{i}_{loss} - \frac{1}{M} \sum_{j=1}^{M} \Delta\tau^{j}_{gain}$$
+```math
+  DE = \frac{1}{N} \sum_{i=1}^{N} \Delta\tau^{i}_{loss} - \frac{1}{M} \sum_{j=1}^{M} \Delta\tau^{j}_{gain}
+```
+
 Where : 
 
-- $\Delta\tau^{i}_{loss}, \ \Delta\tau^{j}_{gain}$ : Difference between open and close time for a given $i$, or, $j$ allocation that resulted in an either $loss$ or a $gain$ outcome, respectively.
-
+- $\Delta\tau^{i}_{loss}, \ \Delta\tau^{j}_{gain}$ : Difference between open and close time for a given $i$, or, $j$ allocation.
+- that resulted in an either $loss$ or a $gain$ outcome, respectively.
 
 ### Sensitivity Decrease
 
@@ -73,7 +77,9 @@ The tendency to exhibit **diminishing sensitivity** to large yield changes rel
 
 #### Step 1: Extract Yield Change Events
 
-For each vault, construct pairs of observations. $( |\Delta r_j|, | \Delta w_{j} | )$ where: 
+For each vault, construct pairs of observations. $( |\Delta r_j|, | \Delta w_{j} | )$
+
+Where: 
 
 - $|\Delta r_j| = | r^{post}_{j} − r^{pre}_{j} |$ : Is the absolute yield change in pool $j$.
 - $|\Delta w_j| = |w^{post}_{j} - w^{pre}_{j}|$ : Is the absolute allocation change in response.
@@ -82,7 +88,10 @@ For each vault, construct pairs of observations. $( |\Delta r_j|, | \Delta w_{j}
 
 Estimate the sensitivity parameter $\alpha$ from the response function.
 
-$$ |\Delta w_{j}| = k \cdot |\Delta r_{j} |^{\alpha} + \epsilon$$ 
+```math
+  |\Delta w_{j}| = k \cdot |\Delta r_{j} |^{\alpha} + \epsilon
+```
+
 Where: 
 
 - $k > 0$ : is a scaling constant.
