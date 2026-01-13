@@ -1,0 +1,328 @@
+# Morpho API GraphQL Queries
+# Endpoint: https://api.morpho.org/graphql
+
+################################################################################
+# TABLE 2: Market State (Current Snapshot)
+################################################################################
+
+query MarketState($chainIds: [Int!], $first: Int!, $skip: Int!) {
+  markets(
+    first: $first
+    skip: $skip
+    orderBy: SupplyAssetsUsd
+    orderDirection: Desc
+    where: { chainId_in: $chainIds }
+  ) {
+    items {
+      uniqueKey
+      lltv
+      oracleAddress
+      irmAddress
+      loanAsset { address symbol decimals }
+      collateralAsset { address symbol decimals }
+      state {
+        borrowAssets
+        borrowAssetsUsd
+        supplyAssets
+        supplyAssetsUsd
+        collateralAssets
+        collateralAssetsUsd
+        liquidityAssets
+        liquidityAssetsUsd
+        utilization
+        fee
+        timestamp
+      }
+    }
+    pageInfo { countTotal }
+  }
+}
+
+# Variables:
+# let var_market_state = { "chainIds": [1, 8453], "first": 100, "skip": 0 };
+
+################################################################################
+# TABLE 3: IRM State + Interest Rate Curve
+################################################################################
+
+query IrmState($uniqueKey: String!, $chainId: Int!, $curvePoints: Int!) {
+  marketByUniqueKey(uniqueKey: $uniqueKey, chainId: $chainId) {
+    uniqueKey
+    irmAddress
+    state {
+      borrowApy
+      supplyApy
+      avgBorrowApy
+      avgSupplyApy
+      rateAtUTarget
+    }
+    currentIrmCurve(numberOfPoints: $curvePoints) {
+      utilization
+      borrowApy
+      supplyApy
+    }
+  }
+}
+
+# Variables:
+# {
+#   "uniqueKey": "0x608929d6de2a10bacf1046ff157ae38df5b9f466fb89413211efb8f63c63833a",
+#   "chainId": 1,
+#   "curvePoints": 50
+# }
+
+################################################################################
+# TABLE 4: Derived Metrics (APYs, Rewards, Utilization)
+################################################################################
+
+query DerivedMetrics($chainIds: [Int!], $first: Int!, $skip: Int!) {
+  markets(
+    first: $first
+    skip: $skip
+    orderBy: SupplyAssetsUsd
+    orderDirection: Desc
+    where: { chainId_in: $chainIds }
+  ) {
+    items {
+      uniqueKey
+      state {
+        utilization
+        supplyApy
+        borrowApy
+        avgSupplyApy
+        avgBorrowApy
+        avgNetSupplyApy
+        avgNetBorrowApy
+        rewards {
+          asset { address symbol }
+          supplyApr
+          borrowApr
+        }
+      }
+    }
+    pageInfo { countTotal }
+  }
+}
+
+# Variables:
+# { "chainIds": [1, 8453], "first": 100, "skip": 0 }
+
+################################################################################
+# TABLE 6: Oracle Data (Chainlink & Morpho Oracles)
+################################################################################
+
+query OracleData($chainIds: [Int!], $first: Int!, $skip: Int!) {
+  markets(
+    first: $first
+    skip: $skip
+    where: { chainId_in: $chainIds }
+  ) {
+    items {
+      uniqueKey
+      oracleAddress
+      oracle {
+        address
+        type
+        baseFeedOne { address chain { id } }
+        baseFeedTwo { address }
+        quoteFeedOne { address }
+        quoteFeedTwo { address }
+      }
+      oracleInfo { type }
+    }
+    pageInfo { countTotal }
+  }
+}
+
+# Variables:
+# { "chainIds": [1], "first": 100, "skip": 0 }
+
+################################################################################
+# TABLE 7: Collateral-Specific Protocol Data
+################################################################################
+
+query CollateralData($chainIds: [Int!], $first: Int!, $skip: Int!) {
+  markets(
+    first: $first
+    skip: $skip
+    where: { chainId_in: $chainIds }
+  ) {
+    items {
+      uniqueKey
+      lltv
+      collateralAsset {
+        address
+        symbol
+        decimals
+        priceUsd
+      }
+      state {
+        collateralAssets
+        collateralAssetsUsd
+      }
+    }
+    pageInfo { countTotal }
+  }
+}
+
+# Variables:
+# { "chainIds": [1, 8453], "first": 100, "skip": 0 }
+
+################################################################################
+# TABLE 10: Vault Data (MetaMorpho Vaults)
+################################################################################
+
+query VaultData($chainIds: [Int!], $first: Int!, $skip: Int!) {
+  vaults(
+    first: $first
+    skip: $skip
+    orderBy: TotalAssetsUsd
+    orderDirection: Desc
+    where: { chainId_in: $chainIds }
+  ) {
+    items {
+      address
+      name
+      symbol
+      chainId
+      asset { address symbol decimals }
+      curator { address }
+      state {
+        totalAssets
+        totalAssetsUsd
+        totalSupply
+        fee
+        apy
+        netApy
+        allocation {
+          market { uniqueKey }
+          supplyAssets
+          supplyAssetsUsd
+          supplyCap
+        }
+      }
+    }
+    pageInfo { countTotal }
+  }
+}
+
+# Variables:
+# { "chainIds": [1, 8453], "first": 100, "skip": 0 }
+
+################################################################################
+# TABLE 11: Vault Strategy (Queue & Allocation Details)
+################################################################################
+
+query VaultStrategy($address: String!, $chainId: Int!) {
+  vaultByAddress(address: $address, chainId: $chainId) {
+    address
+    name
+    timelock
+    supplyQueue { 
+      uniqueKey 
+      lltv 
+      loanAsset { symbol } 
+      collateralAsset { symbol } 
+    }
+    withdrawQueue { uniqueKey lltv }
+    state {
+      allocation {
+        market { uniqueKey lltv }
+        supplyCap
+        supplyAssets
+        supplyAssetsUsd
+        pendingSupplyAssets
+        enabled
+      }
+    }
+  }
+}
+
+# Variables:
+# { "address": "0xBEEF01735c132Ada46AA9aA4c54623cAA92A64CB", "chainId": 1 }
+
+################################################################################
+# TABLE 15: Historical Market Time Series (REQUIRES CHUNKING)
+################################################################################
+
+query HistoricalMarket($uniqueKey: String!, $chainId: Int!, $options: TimeseriesOptions) {
+  marketByUniqueKey(uniqueKey: $uniqueKey, chainId: $chainId) {
+    uniqueKey
+    historicalState {
+      supplyAssets(options: $options) { x y }
+      borrowAssets(options: $options) { x y }
+      supplyAssetsUsd(options: $options) { x y }
+      borrowAssetsUsd(options: $options) { x y }
+      supplyApy(options: $options) { x y }
+      borrowApy(options: $options) { x y }
+      utilization(options: $options) { x y }
+      fee(options: $options) { x y }
+    }
+  }
+}
+
+# Variables (1 week chunk at HOUR interval):
+# {
+#   "uniqueKey": "0x608929d6de2a10bacf1046ff157ae38df5b9f466fb89413211efb8f63c63833a",
+#   "chainId": 1,
+#   "options": {
+#     "startTimestamp": 1704067200,
+#     "endTimestamp": 1704672000,
+#     "interval": "HOUR"
+#   }
+# }
+
+# INTERVAL OPTIONS:
+# MINUTE | FIVE_MINUTES | FIFTEEN_MINUTES | HALF_HOUR | HOUR | DAY | WEEK | MONTH
+
+################################################################################
+# TABLE 15: Historical Vault Time Series
+################################################################################
+
+query HistoricalVault($address: String!, $chainId: Int!, $options: TimeseriesOptions) {
+  vaultByAddress(address: $address, chainId: $chainId) {
+    address
+    historicalState {
+      totalAssets(options: $options) { x y }
+      totalAssetsUsd(options: $options) { x y }
+      apy(options: $options) { x y }
+      netApy(options: $options) { x y }
+      fee(options: $options) { x y }
+    }
+  }
+}
+
+# Variables:
+# {
+#   "address": "0xBEEF01735c132Ada46AA9aA4c54623cAA92A64CB",
+#   "chainId": 1,
+#   "options": {
+#     "startTimestamp": 1704067200,
+#     "endTimestamp": 1704672000,
+#     "interval": "HOUR"
+#   }
+# }
+
+################################################################################
+# TABLE 16: Asset Price History
+################################################################################
+
+query HistoricalAssetPrice($address: String!, $chainId: Int!, $options: TimeseriesOptions) {
+  assetByAddress(address: $address, chainId: $chainId) {
+    address
+    symbol
+    historicalPriceUsd(options: $options) { x y }
+  }
+}
+
+# Variables (wstETH on Ethereum):
+# {
+#   "address": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+#   "chainId": 1,
+#   "options": {
+#     "startTimestamp": 1704067200,
+#     "endTimestamp": 1704672000,
+#     "interval": "HOUR"
+#   }
+# }
+
