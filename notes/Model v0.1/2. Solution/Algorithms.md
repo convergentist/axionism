@@ -81,3 +81,5 @@
 \end{algorithmic}
 \end{algorithm}
 ```
+
+test-driven development, freq of deploys slowed down. longer term larger releases. 

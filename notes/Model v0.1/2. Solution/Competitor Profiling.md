@@ -38,7 +38,6 @@ Type 4 : Rational Optimizer (Classical and almost theoretic case)
 - Behavior : Classic Expected Utility Maximizer.
 - Would exhibit perfect rationality without any effect of the previously cited biases.
 
-
 ## Quantifying biases
 
 Using historical rebalance events to identify the patterns :
@@ -59,9 +58,15 @@ The presence of "cutting fast gains", and, "holding losses too long" patterns.
 2. **Scan for Floating Losses:** For every anchor event, check if the vault simultaneously maintained exposure to an underperforming pool (the "loser") that had a lower APY or was yielding a relative loss.
 3. **Apply the Ratio Test:** Measure the disproportion between holding time between the realized gain and the retained loss.
 
+<<<<<<< HEAD
 ```math
   DE = \frac{1}{N} \sum_{i=1}^{N} \Delta\tau^{i}_{loss} - \frac{1}{M} \sum_{j=1}^{M} \Delta\tau^{j}_{gain}
 ```
+=======
+
+$$ DE = \frac{1}{N} \sum_{i=1}^{N} \Delta\tau^{i}_{loss} - \frac{1}{M} \sum_{j=1}^{M} \Delta\tau^{j}_{gain} $$
+
+>>>>>>> 7711aae (Updates in notes)
 
 Where : 
 
@@ -88,9 +93,14 @@ Where:
 
 Estimate the sensitivity parameter $\alpha$ from the response function.
 
+<<<<<<< HEAD
 ```math
   |\Delta w_{j}| = k \cdot |\Delta r_{j} |^{\alpha} + \epsilon
 ```
+=======
+
+$$|\Delta w_{j}| = k \cdot |\Delta r_{j} |^{\alpha} + \epsilon$$ 
+>>>>>>> 7711aae (Updates in notes)
 
 Where: 
 

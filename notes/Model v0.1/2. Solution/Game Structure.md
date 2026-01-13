@@ -19,7 +19,11 @@ $M$ Morpho markets, indexed by $j \in \{1, \ldots, M\}$ (in this case, $M = 3$)
 ### Action Space (Strategy Set) for Player $i$
 
 ```math
+<<<<<<< HEAD
   W_i = \left\{ w_i \in \mathbb{R}_+^M : \sum_{j=1}^M w_{ij} = 1, \; w_{ij} \geq 0 \; \forall j \right\}
+=======
+    W_i = \left\{ w_i \in \mathbb{R}_+^M : \sum_{j=1}^M w_{ij} = 1, \; w_{ij} \geq 0 \; \forall j \right\}
+>>>>>>> 7711aae (Updates in notes)
 ```
 
 Where:
@@ -28,11 +32,19 @@ Where:
 
 ### Joint Strategy Profile
 
+<<<<<<< HEAD
 $$w = (w_1, w_2, \ldots, w_N) \in W_1 \times W_2 \times \cdots \times W_N$$
+=======
+```math
+w = (w_1, w_2, \ldots, w_N) \in W_1 \times W_2 \times \cdots \times W_N
+```
+>>>>>>> 7711aae (Updates in notes)
 
 ### Strategies of All Players Except $i$
 
-$$w_{-i} = (w_1, \ldots, w_{i-1}, w_{i+1}, \ldots, w_N)$$
+```math
+    w_{-i} = (w_1, \ldots, w_{i-1}, w_{i+1}, \ldots, w_N)
+```
 
 ### Total Value Locked (TVL) for Vault $i$
 
