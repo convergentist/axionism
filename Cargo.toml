@@ -1,0 +1,60 @@
+[workspace]
+resolver = "2"
+members = [
+  "axios-data",
+  "axios-policy",
+  "axios-profile",
+  "axios-protocol",
+  "axios-rs",
+  "benches",
+  "examples",
+]
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.85.0"
+description = ""
+documentation = "https://docs.rs/axios-rs/"
+repository = "https://github.com/IFFranciscoME/axios-rs"
+license = "Apache-2.0"
+keywords = ["crypto", "defi", "game-theory", "lending", "math"]
+categories = ["data-structures", "development-tools", "finance", "simulation"]
+exclude = ["*.log", ".github", "Makefile.toml", "tags"]
+include = ["katex-header.html"]
+
+[workspace.dependencies]
+anyhow = { version = "1.0" }
+async-rate-limiter = { version = "1.0", features = ["rt-tokio"] }
+async-trait = { version = "0.1" }
+chrono = { version = "0.4", features = ["serde"] }
+config = { version = "0.13" }
+csv = { version = "1.3" }
+futures = { version = "0.3" }
+futures-util = { version = "0.3.31" }
+rand = { version = "0.9.0" }
+rand_distr = { version = "0.5.0" }
+reqwest = { version = "0.12", features = ["json"] }
+rust_decimal = { version = "1.34", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0" }
+tracing = { version = "0.1.44" }
+thiserror = { version = "1.0.64" }
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = { version = "0.21", features = ["native-tls"] }
+toml = { version = "0.8" }
+url = { version = "2.0" }
+
+[workspace.lints.rust]
+dead_code = "allow"
+too_many_arguments = "allow"
+trivial_casts = "warn"
+trivial_numeric_casts = "warn"
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(nightly)"] }
+unreachable_code = "deny"
+unreachable_patterns = "deny"
+unsafe_code = "forbid"
+unused_extern_crates = "allow"
+unused_variables = "warn"
+
+[workspace.metadata.spellcheck]
+config = "spellcheck.toml"

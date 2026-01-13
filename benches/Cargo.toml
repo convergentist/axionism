@@ -1,0 +1,32 @@
+[package]
+name = "benches"
+description = "Benchmarks for the axios-rs engine"
+publish = false
+readme = "README.md"
+version = "0.0.10"
+rust-version = "1.85.0"
+edition = "2024"
+exclude = ["*.log", ".github", "Makefile.toml", "tags"]
+include = ["../katex-header.html", "Cargo.toml", "README.md", "src/**/*"]
+
+documentation = "https://docs.rs/axios-rs/"
+repository = "https://github.com/iffranciscome/axios-rs"
+keywords = ["crypto", "defi", "math", "trading"]
+categories = ["data-structures", "development-tools", "finance", "simulation"]
+license = "Apache-2.0"
+
+[package.metadata.docs.rs]
+private-doc = true
+
+[[bench]]
+harness = false
+name = "payoff_benchmark"
+path = "payoff_benchmark.rs"
+
+[dependencies]
+axios_data = { path = "../axios-data", version = "0.0.10" }
+
+criterion = { version = "0.5", features = ["html_reports"] }
+human_bytes = { version = "0.4.1" }
+memuse = { version = "0.2.0" }
+rand = { version = "0.9.0" }
