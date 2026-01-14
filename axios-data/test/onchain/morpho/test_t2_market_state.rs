@@ -1,10 +1,19 @@
 #[cfg(test)]
+
+mod test_utils {
+    pub const CHAIN_ETHEREUM: i32 = 1;
+}
+
 mod tests {
 
-    use axios_data::{onchain::graphs::queries, sources::morpho::MorphoClient};
+    use crate::test_utils::CHAIN_ETHEREUM;
+    use axios_data::{
+        onchain::graphs::queries,
+        sources::morpho::{MarketStateResponse, MorphoClient},
+    };
     use serde::Serialize;
 
-    /// Variables for MarketState, DerivedMetrics, OracleData, CollateralData queries
+    /// Variables for MarketState
     #[derive(Debug, Clone, Serialize)]
     #[serde(rename_all = "camelCase")]
     pub struct PaginatedChainVars {
@@ -38,6 +47,8 @@ mod tests {
             .await
             .expect("MarketState query failed");
 
+        // println!("{:?}", serde_json::to_string_pretty(&result));
+
         assert!(!result.markets.items.is_empty(), "Should return markets");
 
         let first = &result.markets.items[0];
@@ -45,7 +56,7 @@ mod tests {
         assert!(first.state.is_some(), "Market should have state");
 
         println!(
-            "TABLE 2: Found {} markets, first: {}",
+            "TABLE 2 (Market State): Found {} markets, first: {}",
             result.markets.items.len(),
             &first.unique_key[..20]
         );

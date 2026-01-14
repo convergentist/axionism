@@ -10,6 +10,5 @@ Bybit: Orderbook, PublicTrades, Liquidations, FundingRates
 
 - OnChain
 
-Morphoe Blue: MarketState, IRMState, complements.
-
+Morphoe Blue: MarketState, IRMState, VaultState
 

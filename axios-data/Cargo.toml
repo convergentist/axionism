@@ -33,6 +33,10 @@ path = "test/onchain/morpho/test_t2_market_state.rs"
 name = "test_t3_irm_state"
 path = "test/onchain/morpho/test_t3_irm_state.rs"
 
+[[test]]
+name = "test_t10_vault_state"
+path = "test/onchain/morpho/test_t10_vault_state.rs"
+
 [dependencies]
 async-rate-limiter = { workspace = true }
 async-trait = { workspace = true }

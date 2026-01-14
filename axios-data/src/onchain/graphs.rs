@@ -168,9 +168,8 @@ query VaultData($chainIds: [Int!], $first: Int!, $skip: Int!) {
       address
       name
       symbol
-      chainId
+      chain { id }
       asset { address symbol decimals }
-      curator { address }
       state {
         totalAssets
         totalAssetsUsd
@@ -195,8 +194,8 @@ query VaultData($chainIds: [Int!], $first: Int!, $skip: Int!) {
     // TABLE 11: Vault Strategy Data
     // ------------------------------------------------------------------------
     pub const VAULT_STRATEGY: &str = r#"
-query VaultStrategy($address: String!, $chainId: Int!) {
-  vaultByAddress(address: $address, chainId: $chainId) {
+query VaultStrategy($address: String!, $chain: Int!) {
+  vaultByAddress(address: $address, chain: $chain) {
     address
     name
     timelock

@@ -6,3 +6,8 @@ pub use morpho::MorphoClient;
 pub enum Exchange {
     Bybit,
 }
+
+#[derive(Debug, Clone)]
+pub enum Protocol {
+    Morpho,
+}

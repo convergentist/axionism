@@ -184,9 +184,8 @@ query VaultData($chainIds: [Int!], $first: Int!, $skip: Int!) {
       address
       name
       symbol
-      chainId
+      chain { id }
       asset { address symbol decimals }
-      curator { address }
       state {
         totalAssets
         totalAssetsUsd
@@ -207,7 +206,7 @@ query VaultData($chainIds: [Int!], $first: Int!, $skip: Int!) {
 }
 
 # Variables:
-# { "chainIds": [1, 8453], "first": 100, "skip": 0 }
+# { "chain": [1, 8453], "first": 100, "skip": 0 }
 
 ################################################################################
 # TABLE 11: Vault Strategy (Queue & Allocation Details)
