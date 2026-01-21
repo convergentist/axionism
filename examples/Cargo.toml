@@ -1,0 +1,35 @@
+[package]
+name = "example"
+version = "0.0.10"
+edition = "2024"
+rust-version = "1.85.0"
+description = ""
+documentation = "https://docs.rs/axios-rs/"
+readme = "README.md"
+repository = "https://github.com/iffranciscome/axios-rs"
+license = "Apache-2.0"
+keywords = ["crypto", "defi", "framework", "game-theory", "math"]
+categories = ["data-structures", "development-tools", "finance", "simulation"]
+exclude = ["*.log", ".github", "Makefile.toml", "tags"]
+include = ["../katex-header.html"]
+publish = false
+
+[package.metadata.docs.rs]
+private-doc = true
+
+[[example]]
+name = "fetch_all_tables"
+path = "querying_data/fetch_all_tables.rs"
+
+[dependencies]
+
+axios_data = { path = "../axios-data", version = "0.0.10" }
+
+anyhow = { workspace = true }
+chrono = { workspace = true }
+rand = { workspace = true }
+rand_distr = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+toml = { workspace = true }

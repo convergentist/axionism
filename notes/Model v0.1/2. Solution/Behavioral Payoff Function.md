@@ -1,3 +1,7 @@
+---
+
+---
+---
 
 Prospect Theory for Value function considering the reference point (for loss aversion, disposition effect, and, sensitivity decrease), as well with transaction and rebalancing costs.
 
@@ -8,9 +12,9 @@ Prospect Theory for Value function considering the reference point (for loss ave
 
 **Risk-Adjusted, Behavioral Payoff Function:**
 
-```math
+$$
   \boxed{\pi_i(w_i, w_{-i}) = \sum_{j=1}^M w_{ij} \cdot v_i(\Delta r_{ij}) - \gamma_i \cdot \text{Risk}_i(w_i, w) - \kappa_i \cdot \text{Cost}_i(w_i, w_i^{(0)})}
-```
+$$
 
 Where:
 
@@ -72,9 +76,9 @@ $$r_{\text{ref},i} = \max_{j \in \{1,\ldots,M\}} r_j(w^{(0)})$$
 
 Penalizes allocation to high-utilization markets (liquidity withdrawal risk):
 
-```math
+$$
   \text{Risk}_i^{\text{util}}(w_i, w) = \sum_{j=1}^M w_{ij} \cdot \max\left(0, U_j'(w) - U_{\text{safe}}\right)^2
-```
+$$
 
 Where : 
 
@@ -84,17 +88,17 @@ Where :
 
 Using the concept of the Herfindahl Index, which penalizes under-diversification :
 
-```math
+$$
   \text{Risk}_i^{\text{conc}}(w_i) = \sum_{j=1}^M w_{ij}^2
-```
+$$
 
 This is minimized at $1/M$ (equal allocation) and maximized at $1$ (single-market concentration).
 
 **Combined Risk Function:**
 
-```math
+$$
   \text{Risk}_i(w_i, w) = \rho_1 \cdot \text{Risk}_i^{\text{util}}(w_i, w) + \rho_2 \cdot \text{Risk}_i^{\text{conc}}(w_i)
-```
+$$
 
 Where:
 
@@ -103,9 +107,9 @@ Where:
 ## Transaction Cost
 
 
-```math
+$$
   \text{Cost}_i(w_i, w_i^{(0)}) = c_{\text{gas}} \cdot \text{TVL}_i \cdot \sum_{j=1}^M \left|w_{ij} - w_{ij}^{(0)}\right|
-```
+$$
 
 Where :
 
@@ -113,4 +117,3 @@ Where :
 - $TVL_i$ : current Total Value Locked for the $i$ Vault.
 - $w_{ij}$ :  The Vault $i$'s intended allocation on pool $j$.
 - $w_{ij}^{(0)}$ : The vault $i$'s current allocation on pool $j$.
-

@@ -1,6 +1,101 @@
 
-# Best response for Vault $i$
+For this project, there were developed 4 algorithms:
+
+1. Calibration of $\theta_{i}$ Behavioral params for every Vault $i$.
+2. Compute the $\omega_{i}$ Best Response for a single vault $i$ perspective.
+3. Compute the allocati0on policy using WOLF
+
+# Algorithm 0: Compute Vault Ranking.
 ---
+
+Using both the historical allocations and the current (or last knonw) set of values for each vault $i$, the creation of a ranking system for the observable vaults, is defined through the following algorithm:
+
+**Input:**
+- Vault's $i$ Historical Allocation Data.
+- Vault's $t$ (Last) Total Value Locked (TVL).
+
+**Output:**
+- Ranking $\rho^{t}$:
+
+# Algorithm 1: Calibrate Prospect Theory Params.
+---
+
+For each Vault *i*, the following algorithm is used to compute the $\theta$ params formulated with prospect theory: $\theta_{i} = \{ \alpha_{i}, \beta_{i}, \lambda_{i}, \gamma_{i}, \kappa_{i} \}$. 
+
+**Input:**
+- Historical allocation data {(*wᵢ*⁽ᵗ⁾, *w*₋ᵢ⁽ᵗ⁾, *r*⁽ᵗ⁾)} for *t* = 1, ..., *T*
+
+**Output:**
+- Estimated parameters $\hat{\theta_{i}} =  \( \hat{\alpha_{i}}, \hat{\beta_{i}}, \hat{\lambda_{i}}, \hat{\gamma_{i}}, \hat{\kappa{i}} \)$
+<!-- $θ̂ᵢ = (α̂ᵢ, β̂ᵢ, λ̂ᵢ, γ̂ᵢ, κ̂ᵢ) -->
+
+---
+
+1. **Define likelihood function**
+   
+   For each observed allocation *wᵢ*⁽ᵗ⁾, assume it's the best response:
+   
+   ℒ(θᵢ | data) = ∏ₜ *p*(*wᵢ*⁽ᵗ⁾ | *w*₋ᵢ⁽ᵗ⁾, *r*⁽ᵗ⁾, θᵢ)
+
+2. **Model choice probability**
+   
+   *p*(*wᵢ* | *w*₋ᵢ, *r*, θᵢ) = QRE
+
+3. **Optimize log-likelihood**
+   
+   θ̂ᵢ ← arg maxₜₕₑₜₐ log ℒ(θᵢ | data)
+
+4. **Validate fit**
+   
+   Compute out-of-sample prediction accuracy on held-out data
+   
+   **return** θ̂ᵢ
+
+
+## Algorithm 1: Compute Best Response for Vault *i*
+
+**Input:**
+- Current allocations: $w^0 = (w_{1}^{0}, ..., w_{n}^{0})$
+- Market state: $(S_{j}^{0}, B_{h}^{0})$ for $j = 1, ..., M$
+- Vault *i* parameters: (αᵢ, βᵢ, λᵢ, γᵢ, κᵢ, TVLᵢ)
+- Opponent strategies space: *w*₋ᵢ
+
+**Output:** Decision *wᵢ*
+
+**Require:** SLSQP (Sequential Least Squares Programming)
+
+---
+
+1. **Compute reference point**
+   
+   *r*ᵣₑ𝒻,ᵢ ← Σⱼ *wᵢⱼ*⁽⁰⁾ · *rⱼ*(*w*⁽⁰⁾)
+
+2. **Define objective function**
+   
+   πᵢ(*wᵢ*) = Σⱼ *wᵢⱼ* · *vᵢ*(*rⱼ*(*wᵢ*, *w*₋ᵢ) − *r*ᵣₑ𝒻,ᵢ) − γᵢ · Riskᵢ(*wᵢ*) − κᵢ · Costᵢ(*wᵢ*)
+
+3. **Set up optimization problem**
+   
+   **maximize** πᵢ(*wᵢ*) over *wᵢ* ∈ *Wᵢ*
+   
+   subject to: Σⱼ *wᵢⱼ* = 1, *wᵢⱼ* ≥ 0, ∀*j* ∈ {1, ..., *M*}
+
+4. **Solve using nonlinear optimization**
+   
+   *wᵢ*ᴮᴿ ← SLSQP(πᵢ, *wᵢ*⁽⁰⁾, constraints)
+
+5. **Validate solution**
+   
+   **if** πᵢ(*wᵢ*ᴮᴿ) < πᵢ(*wᵢ*⁽⁰⁾) − ε **then**
+   > **return** *wᵢ*⁽⁰⁾
+   
+   **else**
+   > **return** *wᵢ*ᴮᴿ
+
+---
+
+	
+
 
 ## Compute Best Response for Vault $i$
 
@@ -83,3 +178,4 @@
 ```
 
 test-driven development, freq of deploys slowed down. longer term larger releases. 
+

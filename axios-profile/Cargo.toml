@@ -1,9 +1,9 @@
 [package]
-name = "axios_data"
+name = "axios_profile"
 version = "0.0.10"
 edition = "2024"
 rust-version = "1.85.0"
-description = "Core data structures and I/O methods"
+description = ""
 documentation = "https://docs.rs/axios-rs/"
 readme = "README.md"
 repository = "https://github.com/IFFranciscoME/axios-rs"
@@ -18,44 +18,19 @@ publish = true
 private-doc = true
 
 [lib]
-name = "axios_data"
+name = "axios_profile"
 path = "src/lib.rs"
 
 [[test]]
-name = "test_liquidations"
-path = "test/bybit/liquidations/liquidations_test.rs"
-
-[[test]]
-name = "test_t2_market_state"
-path = "test/onchain/morpho/test_t2_market_state.rs"
-
-[[test]]
-name = "test_t3_irm_state"
-path = "test/onchain/morpho/test_t3_irm_state.rs"
-
-[[test]]
-name = "test_t10_vault_state"
-path = "test/onchain/morpho/test_t10_vault_state.rs"
-
-[[test]]
-name = "test_hist_allocations"
-path = "test/onchain/morpho/test_hist_allocations.rs"
+name = "test_profile"
+path = "test/test_profile.rs"
 
 [dependencies]
-async-rate-limiter = { workspace = true }
-async-trait = { workspace = true }
-chrono = { workspace = true }
-config = { workspace = true }
 csv = { workspace = true }
-futures-util = { workspace = true }
 rand = { workspace = true }
 rand_distr = { workspace = true }
-reqwest = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-tracing = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true }
-tokio-tungstenite = { workspace = true }
 toml = { workspace = true }
-url = { workspace = true }

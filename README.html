@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="behavioral-payoff-function">Behavioral Payoff Function</h1>
+<p>A game-theoretic framework for modeling strategic interactions among
+vault managers competing to allocate capital across Morpho Blue lending
+markets. This framework incorporates Prospect Theory to capture
+behavioral biases in decision-making, including reference-dependent
+evaluation, risk/loss propension/aversion, and decreasing sensitivity to
+gain/losses.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#1-game-structure">Game Structure</a></li>
+<li><a href="#2-market-dynamics">Market Dynamics</a></li>
+<li><a href="#3-two-stage-payoff-function">Two-Stage Payoff
+Function</a></li>
+<li><a href="#4-parameter-specification">Parameter
+Specification</a></li>
+<li><a href="#5-gradient-computation">Gradient Computation</a></li>
+<li><a href="#6-algorithms">Algorithms</a></li>
+<li><a href="#7-hyperparameter-guidelines">Hyperparameter
+Guidelines</a></li>
+<li><a href="#8-references">References</a></li>
+</ul>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>This framework models a repeated simultaneous-move game where <span
+class="math inline">\(N\)</span> vault managers allocate capital across
+<span class="math inline">\(M\)</span> Morpho lending markets. The
+strategic interactions among players arise from two channels:</p>
+<ol type="1">
+<li><p><strong>Utilization Effects (Primary):</strong> When vaults
+allocate to the same market, increased supply reduces utilization and
+thus lending yields for all participants.</p></li>
+<li><p><strong>Liquidation Externalities (Secondary):</strong>
+Concentrated positions in a market increase systemic liquidation risk
+for all vaults exposed to that market.</p></li>
+</ol>
+<p>The key innovation is applying Prospect Theory at the aggregate
+payoff level with adaptive reference points, creating a non-stationary
+game that requires specialized equilibrium computation methods rather
+than classical approaches.</p>
+<hr />
+<h2 id="game-structure">1. Game Structure</h2>
+<h3 id="formal-definition">1.1 Formal Definition</h3>
+<p>The game is defined as:</p>
+<p><span class="math display">\[\Gamma = \left(N, \{W_i\}_{i=1}^N,
+\{\tilde{\pi}_i\}_{i=1}^N, \{r_i^t\}_{i=1}^N\right)\]</span></p>
+<p><em>Where</em>:</p>
+<ul>
+<li><span class="math inline">\(N\)</span> is the set of vault managers
+(players), indexed by <span class="math inline">\(i \in \{1, \ldots,
+N\}\)</span></li>
+<li><span class="math inline">\(W_i\)</span> is the action space for
+player <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(\tilde{\pi}_i\)</span> is the
+PT-transformed payoff function for player <span
+class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(r_i^t\)</span> is the reference point
+for player <span class="math inline">\(i\)</span> at time <span
+class="math inline">\(t\)</span></li>
+</ul>
+<h3 id="action-space">1.2 Action Space</h3>
+<p>Each vault manager <span class="math inline">\(i\)</span> chooses an
+allocation over <span class="math inline">\(M\)</span> markets:</p>
+<p><span class="math display">\[W_i = \left\{ w_i \in \mathbb{R}_+^M :
+\sum_{j=1}^M w_{ij} = 1, \; w_{ij} \geq 0 \; \forall j
+\right\}\]</span></p>
+<p>The action space is the <span
+class="math inline">\((M-1)\)</span>-simplex <span
+class="math inline">\(\Delta^{M-1}\)</span>.</p>
+<h3 id="strategy-profiles">1.3 Strategy Profiles</h3>
+<p>The joint strategy profile and notation for opponent strategies:</p>
+<p><span class="math display">\[w = (w_1, w_2, \ldots, w_N) \in W_1
+\times W_2 \times \cdots \times W_N\]</span></p>
+<p><span class="math display">\[w_{-i} = (w_1, \ldots, w_{i-1}, w_{i+1},
+\ldots, w_N)\]</span></p>
+<h3 id="capital">1.4 Capital</h3>
+<p>Each vault <span class="math inline">\(i\)</span> controls capital
+<span class="math inline">\(K_i = \text{TVL}_i &gt; 0\)</span>, which
+determines their market impact.</p>
+<hr />
+<h2 id="market-dynamics">2. Market Dynamics</h2>
+<h3 id="supply-aggregation">2.1 Supply Aggregation</h3>
+<p><span class="math display">\[S_j(w)\]</span> as the total supply in
+market <span class="math inline">\(j\)</span> after all <span
+class="math inline">\(w\)</span> allocations:</p>
+<p><span class="math display">\[S_j(w) = S_j^{\text{ext}} + \sum_{i=1}^N
+w_{ij} \cdot K_i\]</span></p>
+<p><em>Where</em> :</p>
+<ul>
+<li><span class="math inline">\(S_j^{\text{ext}}\)</span> is supply from
+non-strategic agents (passive depositors, retail LPs).</li>
+</ul>
+<h3 id="utilization-rate">2.2 Utilization Rate</h3>
+<p>Post-allocation utilization in market <span
+class="math inline">\(j\)</span>:</p>
+<p><span class="math display">\[U_j(w) = \frac{D_j}{S_j(w)} =
+\frac{D_j}{S_j^{\text{ext}} + \sum_{i=1}^N w_{ij} \cdot
+K_i}\]</span></p>
+<p><em>Where</em> :</p>
+<ul>
+<li><span class="math inline">\(D_j\)</span> is total borrow demand in
+market <span class="math inline">\(j\)</span>.</li>
+</ul>
+<blockquote>
+<p><strong>Strategic Implication:</strong> <span
+class="math inline">\(\frac{\partial U_j}{\partial w_{ij}} &lt;
+0\)</span> — increasing allocation to market <span
+class="math inline">\(j\)</span> reduces utilization (more supply
+chasing same demand), creating the congestion-game structure.</p>
+</blockquote>
+<h3 id="interest-rate-model">2.3 Interest Rate Model</h3>
+<p>The borrow rate follows the :</p>
+<p><span class="math display">\[R_j^{\text{borrow}}(U) =
+r_{\text{target},j} \cdot g(U)\]</span></p>
+<p><em>Where</em>:</p>
+<p><span class="math display">\[g(U) = \begin{cases}
+\left(1 - \frac{1}{4}\right) \cdot \frac{U - U^*}{1 - U^*} + 1 &amp;
+\text{if } U &gt; U^* \\[6pt]
+\left(1 - \frac{1}{4}\right) \cdot \frac{U - U^*}{U^*} + 1 &amp;
+\text{if } U \leq U^*
+\end{cases}\]</span></p>
+<p>with target utilization <span class="math inline">\(U^* =
+0.9\)</span>.</p>
+<h3 id="supply-apy">2.4 Supply APY</h3>
+<p><span class="math display">\[R_j(w) = R_j^{\text{borrow}}(U_j(w))
+\cdot U_j(w) \cdot (1 - \phi_j)\]</span></p>
+<p><em>Where</em>:</p>
+<ul>
+<li><span class="math inline">\(\phi_j\)</span> is the protocol fee (set
+to 0 for this analysis).</li>
+</ul>
+<hr />
+<h2 id="two-stage-payoff-function">3. Two-Stage Payoff Function</h2>
+<p>The payoff is constructed in two stages: raw economic payoff followed
+by Prospect Theory transformation.</p>
+<h3 id="stage-1-raw-payoff">3.1 Stage 1: Raw Payoff</h3>
+<p><span class="math display">\[\boxed{\Pi_i^t(w_i, w_{-i}) =
+\underbrace{\sum_{j=1}^M w_{ij} \cdot K_i \cdot R_j(w)}_{\text{Gross
+Yield}} - \underbrace{\sum_{j=1}^M w_{ij} \cdot K_i \cdot
+\ell_j^t(w)}_{\text{Liquidation Losses}} - \underbrace{\kappa_i \cdot
+\mathcal{C}(w_i, w_i^{t-1})}_{\text{Rebalancing Cost}}}\]</span></p>
+<p>Compact form:</p>
+<p><span class="math display">\[\Pi_i^t(w_i, w_{-i}) = \sum_{j=1}^M
+w_{ij} \cdot K_i \cdot R_j(w) \cdot \bigl(1 - \ell_j^t(w)\bigr) -
+\kappa_i \cdot \mathcal{C}(w_i, w_i^{t-1})\]</span></p>
+<h4 id="liquidation-loss-rate">3.1.1 Liquidation Loss Rate</h4>
+<p><span class="math display">\[\ell_j^t(w) =
+\underbrace{\ell_j^{\text{base}}}_{\text{Baseline Risk}} +
+\underbrace{\psi_j \cdot \left(\sum_{k=1}^N K_k \cdot
+w_{kj}\right)^{\theta}}_{\text{Concentration Externality}}\]</span></p>
+<p><em>Where</em>:</p>
+<ul>
+<li><p><span class="math inline">\(\ell_j^{\text{base}} \geq 0\)</span>:
+Baseline liquidation probability (collateral quality, historical
+defaults)</p></li>
+<li><p><span class="math inline">\(\psi_j \geq 0\)</span>: Concentration
+risk sensitivity</p></li>
+<li><p><span class="math inline">\(\theta &gt; 1\)</span>: Concentration
+risk convexity (superlinear: doubling exposure more than doubles
+risk)</p></li>
+</ul>
+<blockquote>
+<p><strong>Strategic Implication:</strong> <span
+class="math inline">\(\frac{\partial \ell_j^t}{\partial w_{kj}} &gt;
+0\)</span> for all <span class="math inline">\(k\)</span> creates
+strategic substitutes — vaults prefer to avoid markets where others
+concentrate.</p>
+</blockquote>
+<h4 id="rebalancing-cost">3.1.2 Rebalancing Cost</h4>
+<p><span class="math display">\[\mathcal{C}(w_i, w_i^{t-1}) =
+\sum_{j=1}^M c_j \cdot \left| w_{ij} - w_{ij}^{t-1} \right|\]</span></p>
+<p><em>Where</em> :</p>
+<ul>
+<li><span class="math inline">\(c_j \in [0.001, 0.005]\)</span> to
+capture gas fees + slippage (0.1–0.5%).</li>
+</ul>
+<h3 id="stage-2-prospect-theory-transformation">3.2 Stage 2: Prospect
+Theory Transformation</h3>
+<h4 id="reference-point-dynamics">3.2.1 Reference Point Dynamics</h4>
+<p>The reference point is the previous period’s raw payoff:</p>
+<p><span class="math display">\[r_i^t = \Pi_i^{t-1}(w_i^{t-1},
+w_{-i}^{t-1})\]</span></p>
+<p><strong>Initialization:</strong> <span class="math inline">\(r_i^0 =
+\sum_{j=1}^M w_{ij}^{(0)} \cdot K_i \cdot R_j(w^{(0)})\)</span></p>
+<h4 id="value-function">3.2.2 Value Function</h4>
+<p><span class="math display">\[V_i(x) = \begin{cases}
+x^{\alpha_i} &amp; \text{if } x \geq 0 \quad \text{(gains)} \\[4pt]
+-\lambda_i \cdot (-x)^{\beta_i} &amp; \text{if } x &lt; 0 \quad
+\text{(losses)}
+\end{cases}\]</span></p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\alpha_i\)</span></td>
+<td><span class="math inline">\((0, 1]\)</span></td>
+<td>Diminishing sensitivity to gains</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\beta_i\)</span></td>
+<td><span class="math inline">\((0, 1]\)</span></td>
+<td>Diminishing sensitivity to losses</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\lambda_i\)</span></td>
+<td><span class="math inline">\(&gt; 1\)</span></td>
+<td>Loss aversion coefficient</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Canonical Values (Tversky &amp; Kahneman, 1992):</strong>
+<span class="math inline">\(\alpha_i = \beta_i = 0.88\)</span>, <span
+class="math inline">\(\lambda_i = 2.25\)</span></p>
+<h4 id="pt-transformed-payoff">3.2.3 PT-Transformed Payoff</h4>
+<p><span class="math display">\[\boxed{\tilde{\pi}_i^t(w_i, w_{-i}) =
+V_i\bigl(\Pi_i^t(w_i, w_{-i}) - r_i^t\bigr)}\]</span></p>
+<hr />
+<h2 id="parameter-specification">4. Parameter Specification</h2>
+<h3 id="vault-specific-behavioral-parameters">4.1 Vault-Specific
+Behavioral Parameters</h3>
+<p><span class="math display">\[\theta_i = \{\alpha_i, \beta_i,
+\lambda_i, \kappa_i\}\]</span></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 17%" />
+<col style="width: 28%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gain sensitivity</td>
+<td><span class="math inline">\(\alpha_i\)</span></td>
+<td><span class="math inline">\((0, 1]\)</span></td>
+<td>Concavity over gains</td>
+</tr>
+<tr>
+<td>Loss sensitivity</td>
+<td><span class="math inline">\(\beta_i\)</span></td>
+<td><span class="math inline">\((0, 1]\)</span></td>
+<td>Convexity over losses</td>
+</tr>
+<tr>
+<td>Loss aversion</td>
+<td><span class="math inline">\(\lambda_i\)</span></td>
+<td><span class="math inline">\(&gt; 1\)</span></td>
+<td>Losses hurt more than equivalent gains</td>
+</tr>
+<tr>
+<td>Transaction cost sensitivity</td>
+<td><span class="math inline">\(\kappa_i\)</span></td>
+<td><span class="math inline">\(\geq 0\)</span></td>
+<td>Penalty for rebalancing</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Loss aversion (<span
+class="math inline">\(\lambda_i &gt; 1\)</span>) captures asymmetric
+risk preferences through the PT value function.</p>
+</blockquote>
+<h3 id="market-specific-parameters">4.2 Market-Specific Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(r_{\text{target},j}\)</span></td>
+<td>Target interest rate in IRM</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\phi_j\)</span></td>
+<td>Protocol fee (currently 0)</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\ell_j^{\text{base}}\)</span></td>
+<td>Baseline liquidation risk</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\psi_j\)</span></td>
+<td>Concentration risk sensitivity</td>
+</tr>
+<tr>
+<td><span class="math inline">\(c_j\)</span></td>
+<td>Rebalancing cost coefficient</td>
+</tr>
+</tbody>
+</table>
+<h3 id="global-parameters">4.3 Global Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\theta\)</span></td>
+<td><span class="math inline">\([1.5, 2.5]\)</span></td>
+<td>Concentration risk convexity</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gradient-computation">5. Gradient Computation</h2>
+<p>For WoLF-IGA, compute <span class="math inline">\(\nabla_{w_i}
+\tilde{\pi}_i^t\)</span> via chain rule:</p>
+<p><span class="math display">\[\nabla_{w_i} \tilde{\pi}_i^t =
+V_i&#39;(\Pi_i^t - r_i^t) \cdot \nabla_{w_i} \Pi_i^t\]</span></p>
+<h3 id="value-function-derivative">5.1 Value Function Derivative</h3>
+<p><span class="math display">\[V_i&#39;(x) = \begin{cases}
+\alpha_i \cdot x^{\alpha_i - 1} &amp; \text{if } x &gt; 0 \\[4pt]
+\lambda_i \cdot \beta_i \cdot (-x)^{\beta_i - 1} &amp; \text{if } x &lt;
+0
+\end{cases}\]</span></p>
+<blockquote>
+<p><strong>Numerical Stability:</strong> The kink at <span
+class="math inline">\(x = 0\)</span> requires smoothing. Use <span
+class="math inline">\(\epsilon\)</span>-interpolation with <span
+class="math inline">\(\epsilon \approx 10^{-6}\)</span>.</p>
+</blockquote>
+<h3 id="raw-payoff-gradient">5.2 Raw Payoff Gradient</h3>
+<p>Let <span class="math inline">\(Y_j(w) = R_j(w) \cdot (1 -
+\ell_j^t(w))\)</span> denote risk-adjusted yield:</p>
+<p><span class="math display">\[\frac{\partial \Pi_i^t}{\partial w_{im}}
+= K_i \cdot Y_m(w) + \sum_{j=1}^M w_{ij} \cdot K_i \cdot \frac{\partial
+Y_j}{\partial w_{im}}\]</span></p>
+<hr />
+<h2 id="algorithms">6. Algorithms</h2>
+<h3 id="algorithm-0-vault-ranking">Algorithm 0: Vault Ranking</h3>
+<p>Construct a ranking system for observable vaults based on historical
+performance and strategic sophistication.</p>
+<p><strong>Input:</strong></p>
+<ul>
+<li>Historical allocations <span
+class="math inline">\(\{w_i^{(t)}\}_{t=1}^T\)</span></li>
+<li>Current TVL: <span class="math inline">\(K_i\)</span></li>
+<li>Market state history <span class="math inline">\(\{R_j^{(t)},
+U_j^{(t)}\}_{t=1}^T\)</span></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Ranking <span class="math inline">\(\rho^t\)</span></li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<blockquote>
+<p>1.- Get <span class="math inline">\(TVL+{i}\)</span>.</p>
+</blockquote>
+<blockquote>
+<p>2.- Sort in descending order <span
+class="math inline">\(TVL_{i}\)</span>.</p>
+</blockquote>
+<hr />
+<h3 id="algorithm-1-calibrate-prospect-theory-parameters">Algorithm 1:
+Calibrate Prospect Theory Parameters</h3>
+<p>Estimate behavioral parameters from observed decisions using maximum
+likelihood under <em>Quantal Response Estimation (QRE)</em>.</p>
+<p><strong>Input:</strong></p>
+<ul>
+<li><p>Historical data <span class="math inline">\(\{(w_i^{(t)},
+w_{-i}^{(t)}, \Pi_i^{(t)})\}_{t=1}^T\)</span></p></li>
+<li><p>Market states <span class="math inline">\(\{(S_j^{(t)},
+D_j^{(t)}, R_j^{(t)})\}_{t=1}^T\)</span></p></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li><span class="math inline">\(\hat{\theta}_i = (\hat{\alpha}_i,
+\hat{\beta}_i, \hat{\lambda}_i, \hat{\kappa}_i)\)</span></li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<blockquote>
+<ol type="1">
+<li><strong>Construct reference point sequence</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>For <span class="math inline">\(t &gt; 1\)</span>: <span
+class="math inline">\(r_i^{(t)} = \Pi_i^{(t-1)}\)</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ol start="2" type="1">
+<li><strong>Define QRE choice probability</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><span class="math display">\[p(w_i \mid w_{-i}, r_i, \theta_i) =
+\frac{\exp\bigl(\mu \cdot \tilde{\pi}_i(w_i, w_{-i};
+\theta_i)\bigr)}{\int_{W_i} \exp\bigl(\mu \cdot \tilde{\pi}_i(w&#39;,
+w_{-i}; \theta_i)\bigr) dw&#39;}\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ol start="3" type="1">
+<li><strong>Maximize log-likelihood</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><span class="math display">\[\hat{\theta}_i \leftarrow
+\arg\max_{\theta_i} \sum_{t=1}^T \log p(w_i^{(t)} \mid w_{-i}^{(t)},
+r_i^{(t)}, \theta_i)\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Subject to: <span class="math inline">\(\alpha_i, \beta_i \in (0,
+1]\)</span>, <span class="math inline">\(\lambda_i &gt; 1\)</span>,
+<span class="math inline">\(\kappa_i \geq 0\)</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ol start="4" type="1">
+<li><strong>Validate</strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>Compute out-of-sample prediction accuracy; report bootstrap
+confidence intervals</p>
+</blockquote>
+<hr />
+<h3 id="algorithm-2-compute-best-response">Algorithm 2: Compute Best
+Response</h3>
+<p>Given fixed opponent strategies, maximize PT-transformed payoff.</p>
+<p><strong>Input:</strong></p>
+<ul>
+<li>Current allocations <span
+class="math inline">\(w^{t-1}\)</span></li>
+<li>Market state <span class="math inline">\((S_j^{\text{ext}},
+D_j)\)</span></li>
+<li>Parameters <span class="math inline">\(\theta_i\)</span>, capital
+<span class="math inline">\(K_i\)</span>, reference <span
+class="math inline">\(r_i^t\)</span></li>
+<li>Fixed opponent strategies <span
+class="math inline">\(w_{-i}\)</span></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Best response <span class="math inline">\(w_i^{BR}\)</span></li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<ol type="1">
+<li><p><strong>Define objective</strong></p>
+<p><span class="math display">\[\tilde{\pi}_i(w_i) =
+V_i\left(\sum_{j=1}^M w_{ij} \cdot K_i \cdot R_j(w_i, w_{-i}) \cdot (1 -
+\ell_j(w_i, w_{-i})) - \kappa_i \cdot \mathcal{C}(w_i, w_i^{t-1}) -
+r_i^t\right)\]</span></p></li>
+<li><p><strong>Solve constrained optimization</strong></p>
+<p><span class="math display">\[w_i^{BR} \leftarrow
+\text{SLSQP}\left(\max_{w_i \in W_i}
+\tilde{\pi}_i(w_i)\right)\]</span></p></li>
+<li><p><strong>Validate</strong></p>
+<p>If <span class="math inline">\(\tilde{\pi}_i(w_i^{BR}) &lt;
+\tilde{\pi}_i(w_i^{t-1}) - \epsilon\)</span>, return <span
+class="math inline">\(w_i^{t-1}\)</span>; else return <span
+class="math inline">\(w_i^{BR}\)</span></p></li>
+</ol>
+<hr />
+<h3 id="algorithm-3-wolf-iga-policy-learning">Algorithm 3: WoLF-IGA
+Policy Learning</h3>
+<p>Win-or-Learn-Fast Infinitesimal Gradient Ascent (WoLF-IGA) for
+non-stationary multi-agent learning.</p>
+<p><strong>Input:</strong></p>
+<ul>
+<li>Initial allocations <span class="math inline">\(w^0\)</span>,
+reference points <span class="math inline">\(r_i^0\)</span></li>
+<li>Parameters <span
+class="math inline">\(\{\theta_i\}_{i=1}^N\)</span></li>
+<li>Learning rates <span class="math inline">\(\delta_l &gt; \delta_w
+&gt; 0\)</span></li>
+<li>Smoothing <span class="math inline">\(\eta \in (0, 1)\)</span></li>
+<li>Max iterations <span class="math inline">\(T_{\max}\)</span>,
+tolerance <span class="math inline">\(\epsilon\)</span></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li>Approximate Nash equilibrium <span
+class="math inline">\(w^*\)</span></li>
+<li>Policy history <span
+class="math inline">\(\{w^t\}_{t=0}^T\)</span></li>
+</ul>
+<hr />
+<blockquote>
+<p><strong>Procedure:</strong></p>
+</blockquote>
+<hr />
+<blockquote>
+<p><strong>Initialize:</strong></p>
+</blockquote>
+<blockquote>
+<p><span class="math display">\[\xi_i^0 \text{ such that } w_i^0 =
+\text{softmax}(\xi_i^0) \quad \forall i \in \{1, \ldots,
+N\}\]</span></p>
+</blockquote>
+<blockquote>
+<p><span class="math display">\[\bar{V}_i^0 = 0 \quad \forall i \in \{1,
+\ldots, N\}\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>For</strong> <span class="math inline">\(t = 0\)</span>
+<strong>to</strong> <span class="math inline">\(T_{\max} - 1\)</span>
+<strong>do:</strong></p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 1: Compute allocations</strong> <span
+class="math display">\[w_i^t = \text{softmax}(\xi_i^t) =
+\frac{\exp(\xi_{ij}^t)}{\sum_{k=1}^M \exp(\xi_{ik}^t)} \quad \forall i,
+j\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 2: Compute raw payoffs</strong> <span
+class="math display">\[\Pi_i^t = \sum_{j=1}^M w_{ij}^t \cdot K_i \cdot
+R_j(w^t) \cdot \bigl(1 - \ell_j^t(w^t)\bigr) - \kappa_i \cdot
+\mathcal{C}(w_i^t, w_i^{t-1})\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 3: Compute PT-transformed payoffs</strong> <span
+class="math display">\[\tilde{\pi}_i^t = V_i\bigl(\Pi_i^t -
+r_i^t\bigr)\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 4: Determine learning rate (WoLF condition)</strong>
+<span class="math display">\[\delta_i^t = \begin{cases} \delta_l &amp;
+\text{if } \tilde{\pi}_i^t &lt; \bar{V}_i^t \quad \text{(losing: learn
+fast)} \\[4pt] \delta_w &amp; \text{if } \tilde{\pi}_i^t \geq
+\bar{V}_i^t \quad \text{(winning: learn slow)} \end{cases}\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 5: Compute policy gradient</strong> <span
+class="math display">\[g_i^t = V_i&#39;(\Pi_i^t - r_i^t) \cdot
+\nabla_{\xi_i} \Pi_i^t\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 6: Update policy parameters</strong> <span
+class="math display">\[\xi_i^{t+1} = \xi_i^t + \delta_i^t \cdot
+g_i^t\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 7: Update reference points</strong> <span
+class="math display">\[r_i^{t+1} = \Pi_i^t\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 8: Update equilibrium value estimates</strong> <span
+class="math display">\[\bar{V}_i^{t+1} = (1 - \eta) \cdot \bar{V}_i^t +
+\eta \cdot \tilde{\pi}_i^t\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong>Step 9: Check convergence</strong> <span
+class="math display">\[\text{if} \ \displaystyle\max_{i} \|w_i^{t+1} -
+w_i^t\|_2 &lt; \epsilon \rightarrow break\]</span></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><strong>end for</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>Return:</strong> <span class="math inline">\(w_i^* =
+\text{softmax}(\xi_i^T) \quad \forall i \in \{1, \ldots,
+N\}\)</span></p>
+</blockquote>
+<hr />
+<h4 id="softmax-gradient">Softmax Gradient</h4>
+<p>The gradient through softmax parameterization:</p>
+<p><span class="math display">\[\frac{\partial \Pi_i^t}{\partial
+\xi_{im}} = \sum_{j=1}^M \frac{\partial \Pi_i^t}{\partial w_{ij}} \cdot
+w_{ij}^t \cdot (\mathbb{1}_{j=m} - w_{im}^t)\]</span></p>
+<hr />
+<h2 id="hyperparameter-guidelines">7. Hyperparameter Guidelines</h2>
+<h3 id="wolf-learning-rates">7.1 WoLF Learning Rates</h3>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 41%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\delta_w\)</span></td>
+<td>0.01</td>
+<td>Win (slow) learning rate</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\delta_l\)</span></td>
+<td>0.04</td>
+<td>Lose (fast) learning rate</td>
+</tr>
+<tr>
+<td>Ratio <span class="math inline">\(\delta_l / \delta_w\)</span></td>
+<td>2–4</td>
+<td>Higher = faster adaptation when losing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="equilibrium-value-smoothing">7.2 Equilibrium Value
+Smoothing</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\eta\)</span></td>
+<td>0.01–0.1</td>
+<td>Smaller = more stable, slower adaptation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="concentration-risk">7.3 Concentration Risk</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(\theta\)</span></td>
+<td>1.5–2.5</td>
+<td>Higher = more punishing concentration</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\psi_j\)</span></td>
+<td>Calibrate</td>
+<td>From historical liquidation data</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="references">8. References</h2>
+<ol type="1">
+<li><p>Tversky, A., &amp; Kahneman, D. (1992). Advances in prospect
+theory: Cumulative representation of uncertainty. <em>Journal of Risk
+and Uncertainty</em>, 5(4), 297–323.</p></li>
+<li><p>Bowling, M., &amp; Veloso, M. (2002). Multiagent learning using a
+variable learning rate. <em>Artificial Intelligence</em>, 136(2),
+215–250.</p></li>
+<li><p>De Giorgi, E., &amp; Hens, T. (2006). Making prospect theory fit
+for finance. <em>Financial Markets and Portfolio Management</em>, 20(3),
+339–360.</p></li>
+</ol>
+<hr />
+<h2 id="license">License</h2>
+<p>[Specify your license here]</p>
+</body>
+</html>

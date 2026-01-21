@@ -1,0 +1,36 @@
+[package]
+name = "axios_backtest"
+version = "0.0.10"
+edition = "2024"
+rust-version = "1.85.0"
+description = ""
+documentation = "https://docs.rs/axios-rs/"
+readme = "README.md"
+repository = "https://github.com/IFFranciscoME/axios-rs"
+license = "Apache-2.0"
+keywords = ["crypto", "defi", "lending", "math", "trading"]
+categories = ["data-structures", "development-tools", "finance", "simulation"]
+exclude = ["*.log", ".github", "Makefile.toml", "tags"]
+include = ["../katex-header.html", "Cargo.toml", "README.md", "src/**/*"]
+publish = false
+
+[package.metadata.docs.rs]
+private-doc = true
+
+[lib]
+name = "axios_backtest"
+path = "src/lib.rs"
+
+[[test]]
+name = "test_backtest"
+path = "test/backtest_test.rs"
+
+[dependencies]
+csv = { workspace = true }
+rand = { workspace = true }
+rand_distr = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+toml = { workspace = true }
