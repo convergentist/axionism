@@ -3,7 +3,7 @@ resolver = "2"
 members = [
   "axios-data",
   "axios-policy",
-  "axios-profile",
+  "axios-engine",
   "axios-protocol",
   "axios-rs",
   "benches",
